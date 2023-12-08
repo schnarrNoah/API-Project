@@ -14,8 +14,7 @@ public class ControllerClass
 	}
 	
 	
-	//LISTENERS===============================================================================
-	
+	//LISTENERS========================================================
 	public void setListeners()
 	{
 		g.setBtnSend(new AClass_Send());
