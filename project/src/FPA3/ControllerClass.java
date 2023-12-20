@@ -28,18 +28,22 @@ public class ControllerClass
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			api.sendData(gui.getTaInput().getText());
-			String ans = api.getData();
-			
-			gui.getLblProbability_out().setText(String.valueOf(getProbability(ans)));
-			
-			
-			gui.getTaOutput().setText(ans);
+			showMessage();
 		}
 	}
 
 	// FUNKTIONS
 	// =======================================================================================
+	
+	public void showMessage()
+	{
+		api.sendData(gui.getTaInput().getText());
+		String ans = api.getData();
+		
+		gui.getTaOutput().setText(ans);
+		gui.getLblProbability_out().setText(String.valueOf(getProbability(ans)));
+	}
+	
 	
 	public int getProbability(String ans)
 	{

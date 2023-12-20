@@ -39,7 +39,7 @@ public class Api implements DataTransfer
 			}
 			else
 			{
-				System.out.println("Verbindung ok!");
+				System.out.println("Verbindung hergestellt!");
 				con.setRequestMethod("POST");
 				con.setRequestProperty("Authorization", "Bearer " + apiKey);
 				con.setRequestProperty("Content-Type", "application/json");
@@ -57,8 +57,10 @@ public class Api implements DataTransfer
 	
 	public void sendData(String message) //Send message
 	{		
-		String introduction = "Check Mail auf Phishing. Das Format deiner Antwort soll so aufgebaut sein: Gib Wahrscheinlichkeit in %, deine Einschätzung. Die Mail lautet:";
+		String introduction = "Check Mail auf Phishing. Das Format deiner Antwort soll so aufgebaut sein: Gib Wahrscheinlichkeit in %, eine kurze, präzise Einschätzung. Die Mail lautet: ";
 		
+		message = message.replace("\n", " "); 
+		message = message.replace("\r", " "); 
 		
 		String body = "{\"model\": \"" + model + "\", \"messages\": [{\"role\": \"user\", \"content\": \"" + introduction + " " + message + "\"}]}";
 		
@@ -118,22 +120,25 @@ public class Api implements DataTransfer
 			System.out.println(eIN.getMessage());
 		}
 		
-		
-		try (JsonReader reader = Json.createReader(new StringReader(jsonString))) 
-		{
-            JsonObject jsonObject = reader.readObject();
-            String answer = jsonObject.getJsonArray("choices").getJsonObject(0).getJsonObject("message").getString("content");
-        } 
-		catch (Exception e) 
-		{
-            e.printStackTrace();
-        }
-		
-		
-		
-		
 		/*
-		if (response.toString().contains("content"))
+		if(response != null)
+		{	
+			try (JsonReader reader = Json.createReader(new StringReader(String.valueOf(response)))) 
+			{
+	            JsonObject jsonObject = reader.readObject();
+	            answer = jsonObject.getJsonArray("choices").getJsonObject(0).getJsonObject("message").getString("content");
+	        } 
+			catch (Exception e) 
+			{
+	            e.printStackTrace();
+	        }
+		}
+		else
+		{
+			answer = "No content found in response.";
+		}*/
+		
+		if (response.toString().contains("\"content\":\""))
 		{
 			answer = response.toString().split("\"content\":\"")[1].split("\"")[0].substring(4);	
 		} 
@@ -141,7 +146,8 @@ public class Api implements DataTransfer
 		{
 			answer = "No content found in response.";
 		}
-		*/
+		
+		
 		return answer;
 	}
 }

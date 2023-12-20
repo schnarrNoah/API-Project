@@ -12,16 +12,18 @@ import java.awt.event.ActionListener;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
+import javax.swing.JScrollBar;
 
 public class Gui extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextArea taInput;
 	private JButton btnSend;
 	private JLabel lblProbability_out;
 	private JLabel lblProbability;
 	private JTextArea taOutput;
+	private JTextArea taInput;
+	private JScrollBar sbForInput;
 
 	public Gui()
 	{
@@ -36,15 +38,15 @@ public class Gui extends JFrame
 		contentPane.setBackground(new Color(156, 238, 248));
 		contentPane.setForeground(new Color(0, 0, 0));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		contentPane.add(getTaInput());
 		contentPane.add(getBtnSend());
 		contentPane.add(getLblProbability_out());
 		contentPane.add(getLblProbability());
-		setVisible(true);
 		contentPane.add(getTaOutput());
+		contentPane.add(getTaInput());
+		contentPane.add(getSbForInput());
+		setVisible(true);
 	}
 
 	// LISTENERS
@@ -53,19 +55,6 @@ public class Gui extends JFrame
 	public void setBtnSend(ActionListener a)
 	{
 		this.btnSend.addActionListener(a);
-	}
-
-	// COMPONENTS
-	// ===================================================================================================
-
-	protected JTextArea getTaInput()
-	{
-		if (taInput == null)
-		{
-			taInput = new JTextArea();
-			taInput.setBounds(10, 11, 504, 173);
-		}
-		return taInput;
 	}
 
 	private JButton getBtnSend()
@@ -109,5 +98,25 @@ public class Gui extends JFrame
 			taOutput.setBounds(10, 277, 504, 155);
 		}
 		return taOutput;
+	}
+
+	protected JTextArea getTaInput()
+	{
+		if (taInput == null)
+		{
+			taInput = new JTextArea();
+			taInput.setBounds(10, 11, 477, 173);
+		}
+		return taInput;
+	}
+
+	protected JScrollBar getSbForInput()
+	{
+		if (sbForInput == null)
+		{
+			sbForInput = new JScrollBar();
+			sbForInput.setBounds(497, 11, 17, 173);
+		}
+		return sbForInput;
 	}
 }
