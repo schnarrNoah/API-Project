@@ -11,16 +11,17 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JTextPane;
 
 public class Gui extends JFrame
 {
-
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextArea taEmail_in;
+	private JTextArea taInput;
 	private JButton btnSend;
 	private JLabel lblProbability_out;
 	private JLabel lblProbability;
+	private JTextArea taOutput;
 
 	public Gui()
 	{
@@ -38,31 +39,33 @@ public class Gui extends JFrame
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		contentPane.add(getTaEmail_in());
+		contentPane.add(getTaInput());
 		contentPane.add(getBtnSend());
 		contentPane.add(getLblProbability_out());
 		contentPane.add(getLblProbability());
 		setVisible(true);
+		contentPane.add(getTaOutput());
 	}
-	
-	//LISTENERS====================================================================================================
-	
+
+	// LISTENERS
+	// ===================================================================================================
+
 	public void setBtnSend(ActionListener a)
 	{
 		this.btnSend.addActionListener(a);
-	}	
+	}
 
-	
-	//COMPONENTS====================================================================================================
-	
-	protected JTextArea getTaEmail_in()
+	// COMPONENTS
+	// ===================================================================================================
+
+	protected JTextArea getTaInput()
 	{
-		if (taEmail_in == null)
+		if (taInput == null)
 		{
-			taEmail_in = new JTextArea();
-			taEmail_in.setBounds(10, 11, 504, 173);
+			taInput = new JTextArea();
+			taInput.setBounds(10, 11, 504, 173);
 		}
-		return taEmail_in;
+		return taInput;
 	}
 
 	private JButton getBtnSend()
@@ -96,5 +99,15 @@ public class Gui extends JFrame
 			lblProbability.setBounds(10, 236, 92, 30);
 		}
 		return lblProbability;
+	}
+
+	protected JTextArea getTaOutput()
+	{
+		if (taOutput == null)
+		{
+			taOutput = new JTextArea();
+			taOutput.setBounds(10, 277, 504, 155);
+		}
+		return taOutput;
 	}
 }

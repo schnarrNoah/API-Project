@@ -5,34 +5,58 @@ import java.awt.event.ActionListener;
 
 public class ControllerClass
 {
-	Gui g;
-	
+	Gui gui;
+	Api api;
+
 	public ControllerClass()
 	{
-		this.g = new Gui();
+		this.gui = new Gui();
+		this.api = new Api();
 		setListeners();
 	}
-	
-	
-	//LISTENERS========================================================
+
+	// LISTENERS
+	// ======================================================================================
+
 	public void setListeners()
 	{
-		g.setBtnSend(new AClass_Send());
+		gui.setBtnSend(new AClass_Send());
 	}
+
 	class AClass_Send implements ActionListener
 	{
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			// TODO Auto-generated method stub
-			sendData();
-		}	
+			api.sendData(gui.getTaInput().getText());
+			String ans = api.getData();
+			
+			gui.getLblProbability_out().setText(String.valueOf(getProbability(ans)));
+			
+			
+			gui.getTaOutput().setText(ans);
+		}
 	}
+
+	// FUNKTIONS
+	// =======================================================================================
 	
-	
-	
-	public void sendData()
+	public int getProbability(String ans)
 	{
-		
+		String probability = ans.replaceAll("[^\\d]", "");
+
+        try 
+        {
+            int parsedProb = Integer.parseInt(probability);
+            return parsedProb;
+        } 
+        catch (NumberFormatException e) 
+        {
+        	System.out.println("Keine Zahl in der Antwort gefunden!");
+        	return -1;
+        }
 	}
+	
+	
+	//DataTransfer d = 
 }
