@@ -19,13 +19,15 @@ public class Api implements DataTransfer
 	String url = "https://api.openai.com/v1/chat/completions";
 	String apiKey = "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";
 	String model = "gpt-3.5-turbo";
+	
 	StringBuffer response = null;
 	String answer = null;
-	URL u;
+	URL u; 
 	HttpURLConnection con;
 	
 	
-	public Api() //Set connection
+	//Set connection========================================================================================
+	public Api() 
 	{
 		try
 		{
@@ -54,8 +56,9 @@ public class Api implements DataTransfer
 	}
 	
 	
-	
-	public void sendData(String message) //Send message
+	//Send message
+	//==========================================================================================================
+	public void sendData(String message) 
 	{		
 		String introduction = "Check Mail auf Phishing. Das Format deiner Antwort soll so aufgebaut sein: Gib Wahrscheinlichkeit in %, eine kurze, präzise Einschätzung. Die Mail lautet: ";
 		
@@ -91,7 +94,10 @@ public class Api implements DataTransfer
 		}
 	}
 	
-	public String getData()	//Get Response
+	
+	//Get Response
+	//==========================================================================================================
+	public String getData()	
 	{
 		try
 		{
@@ -150,11 +156,18 @@ public class Api implements DataTransfer
 		
 		
 		if(response != null)
-		{	
+		{
+			//Extract response
 			String responseStr = String.valueOf(response);
+			
+			Response r = new Response(responseStr);
+			
+			
+			
+			
 			responseStr = responseStr.replaceAll("\\s+", "");
 
-	        String content = responseStr.substring(responseStr.indexOf("\"content\":\"") + 11);
+	        String content = responseStr.substring(responseStr.indexOf("\"content\":\"") + 11);//fügt 11 zur Länge des Suchstrings hinzu, um auf den Beginn des Inhalts zu gelangen
 	        answer = content.substring(0, content.indexOf("\""));
 		}
 		else
