@@ -136,7 +136,7 @@ public class Api implements DataTransfer
 		else
 		{
 			answer = "No content found in response.";
-		}*/
+		}
 		
 		if (response.toString().contains("\"content\":\""))
 		{
@@ -146,6 +146,22 @@ public class Api implements DataTransfer
 		{
 			answer = "No content found in response.";
 		}
+		*/
+		
+		
+		if(response != null)
+		{	
+			String responseStr = String.valueOf(response);
+			responseStr = responseStr.replaceAll("\\s+", "");
+
+	        String content = responseStr.substring(responseStr.indexOf("\"content\":\"") + 11);
+	        answer = content.substring(0, content.indexOf("\""));
+		}
+		else
+		{
+			answer = "No content found in response.";
+		}
+		
 		
 		
 		return answer;
