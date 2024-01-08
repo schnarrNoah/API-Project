@@ -78,7 +78,7 @@ public class Api implements DataTransfer
 		{
 			OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
 
-			//Actual sending
+			//Actual sending body
 			try
 			{
 				out.write(body);
