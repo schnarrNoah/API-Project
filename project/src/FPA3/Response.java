@@ -2,9 +2,9 @@ package FPA3;
 
 public class Response
 {
-	String response;
+	StringBuffer response;
 	
-	public Response(String response)
+	public Response(StringBuffer response)
 	{
 		this.response = response;
 	}

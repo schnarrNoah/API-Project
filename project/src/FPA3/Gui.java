@@ -79,7 +79,7 @@ public class Gui extends JFrame
 		return lblProbability_out;
 	}
 
-	private JLabel getLblProbability()
+	protected JLabel getLblProbability()
 	{
 		if (lblProbability == null)
 		{

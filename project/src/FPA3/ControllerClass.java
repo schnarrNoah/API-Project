@@ -28,31 +28,39 @@ public class ControllerClass
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			showMessage();
+			send_show_message();
 		}
 	}
 
 	// FUNKTIONS
 	// =======================================================================================
 	
-	public void showMessage()
+	public void send_show_message()
 	{
+		//SEND REQUEST
 		api.sendData(gui.getTaInput().getText());
 		String ans = api.getData();
 		
+		//GET RESPONSE
 		gui.getTaOutput().setText(ans);
-		gui.getLblProbability_out().setText(String.valueOf(getProbability(ans)));
+		gui.getLblProbability_out().setText(String.valueOf(getProbability(ans)) + "%");
 	}
 	
 	
 	public int getProbability(String ans)
 	{
 		String probability = ans.replaceAll("[^\\d]", "");
-
+		int prob = Integer.parseInt(probability);
+		
+		if(prob > 100) //Error 100 kann nicht beachtet werden
+		{
+			gui.getLblProbability().setText("ERROR: ");
+			return prob;
+		}
+		
         try 
         {
-            int parsedProb = Integer.parseInt(probability);
-            return parsedProb;
+            return prob;
         } 
         catch (NumberFormatException e) 
         {
@@ -60,7 +68,4 @@ public class ControllerClass
         	return -1;
         }
 	}
-	
-	
-	//DataTransfer d = 
 }
