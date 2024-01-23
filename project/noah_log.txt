@@ -1,0 +1,21 @@
+2024-01-23 22:14:30;Wahrscheinlichkeit: 97%
+Die Nachricht deutet auf Phishing hin, da 
+sie eine dringende Handlung erfordert, um das angebliche 
+Web-Sicherheitssystem zu aktivieren. Der absendername ist allgemein gehalten 
+("Sehr geehrte Kunde") und es werden keine persönlichen 
+Daten des Empfängers verwendet, was ungewöhnlich ist. Zusätzlich 
+ist die Verwendung einer verdächtigen Domain (baank.it) und 
+eines ungewohnten Links ein weiteres Anzeichen für eine 
+betrügerische Absicht.;
+2024-01-23 22:15:14;Wahrscheinlichkeit: 95% Diese Nachricht deute auf Phishing hin, da  der Absender keine spezifischen Informationen enthält und keine  persönliche Anrede verwendet. Außerdem wird Dringlichkeit erzeugt, indem  der Empfänger aufgefordert wird, sofort Maßnahmen zu ergreifen  und seine Kontodaten über einen fragwürdigen Link zu  überprüfen. Ein seriöses Unternehmen würde niemals nach solchen  sensiblen Informationen in einer E-Mail fragen und eine  sichere Webseite verwenden.;
+2024-01-23 22:15:16;Wahrscheinlichkeit: 95% Diese Nachricht deute auf Phishing hin, da  der Absender keine spezifischen Informationen enthält und keine  persönliche Anrede verwendet. Außerdem wird Dringlichkeit erzeugt, indem  der Empfänger aufgefordert wird, sofort Maßnahmen zu ergreifen  und seine Kontodaten über einen fragwürdigen Link zu  überprüfen. Ein seriöses Unternehmen würde niemals nach solchen  sensiblen Informationen in einer E-Mail fragen und eine  sichere Webseite verwenden.;
+2024-01-23 22:18:55;Wahrscheinlichkeit: 90%
+
+Die Nachricht enthält typische Merkmale von Phishing: 
+Die Verwendung des allgemeinen Begriffs "Sehr geehrte kunde", 
+die Aufforderung zur Aktivierung eines "neuen Web-Sicherheitssystems" und 
+die Dringlichkeit, sofortige Maßnahmen zu ergreifen. Der Link 
+führt zu einer verdächtigen und nicht vertrauenswürdigen Domain 
+"baank.it". Es ist ratsam, diese Nachricht als Phishing-Versuch 
+zu betrachten und nicht auf den Link zu 
+klicken oder persönliche Informationen einzugeben.;

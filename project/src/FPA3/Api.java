@@ -6,27 +6,28 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-/*
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import java.io.StringReader;
-//import org.json.JSONObject;
-*/
+import java.time.LocalDate;
+import javax.net.ssl.HttpsURLConnection;
+
 public class Api implements DataTransfer
 {
-	String url = "https://api.openai.com/v1/chat/completions";
-	String apiKey = "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";
-	String model = "gpt-3.5-turbo";
+	private String url = "https://api.openai.com/v1/chat/completions";
+	private String apiKey = "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";
+	private String model = "gpt-3.5-turbo";
 
-	StringBuffer response = null;
-	String answer = null;
-	URL u;
-	HttpURLConnection con;
+	private StringBuffer response = null;
+	private String answer = null;
+	private URL u;
+	private HttpURLConnection con;
 
-	// Set
-	// connection========================================================================================
 	public Api()
+	{
+		setConnection();
+	}
+
+	// Set connection
+	// ========================================================================================
+	public void setConnection()
 	{
 		try
 		{
@@ -34,110 +35,110 @@ public class Api implements DataTransfer
 			u = new URL(url);
 			con = (HttpURLConnection) u.openConnection();
 
-			int responseCode = con.getResponseCode();
-			
-			if (con != null && responseCode == HttpURLConnection.HTTP_OK)
+			if (con != null /* && con.getResponseCode() != HttpsURLConnection.HTTP_NOT_FOUND */)
 			{
-				System.out.println("HTTP-Verbindung OK :)");
+
+				System.out.println("HTTP-Verbindung hergestellt :)");
+
 				con.setRequestMethod("POST");
 				con.setRequestProperty("Authorization", "Bearer " + apiKey);
 				con.setRequestProperty("Content-Type", "application/json");
 				con.setDoOutput(true);
-			} 
-			else
+			} else
 			{
-				System.out.println("Keine HTTP-Verbindung hergestellt :( \n ERRORCODE: " + responseCode);
-				answer = "ERRORCODE: " + responseCode;
+				System.out.println("Keine HTTP-Verbindung hergestellt :(");
 			}
-		} 
-		catch (IOException e)
+		} catch (IOException e)
 		{
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
 	}
 
-	
-	// Send message
+	// Send Request
 	// ==========================================================================================================
+
 	public void sendData(String message)
 	{
-		String introduction = "Check Mail auf Phishing. "
-				+ "Das Format deiner Antwort soll so aufgebaut sein: "
-				+ "Gib Wahrscheinlichkeit in %, eine kurze, präzise Einschätzung. Die Mail lautet: ";
+		setConnection();
+		
+		Request request = new Request(message);
 
-		message = message.replace("\n", " ");
-		message = message.replace("\r", " ");
+		String body = "{\"model\": \"" + model + "\", \"messages\": [{\"role\": \"user\", \"content\": \"" + request
+				+ "\"}]}";
 
-		String body = "{\"model\": \"" + model + "\", \"messages\": [{\"role\": \"user\", \"content\": \"" 
-				+ introduction + " " + message + "\"}]}";
-
-		System.out.println(body);
+		System.out.println("\nREQUEST: " + body);
 
 		try
 		{
 			OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
 
-			//Actual sending body
+			// Actual sending body
 			try
 			{
 				out.write(body);
-			} 
-			catch (IOException e)
+			} catch (IOException eOUT1)
 			{
-				System.out.println(e.getMessage());
-				e.printStackTrace();
-			} 
-			finally
+				System.out.println("Error in sendData()-eOUT1: " + eOUT1.getMessage());
+				eOUT1.printStackTrace();
+			} finally
 			{
-				// Writes everything into stream and close it
+				// Everything into stream and close it
+				System.out.println("\tSENDING DATA COMPLETE...");
 				out.flush();
 				out.close();
 			}
-		} 
-		catch (IOException eOUT)
+		} catch (IOException eOUT2)
 		{
-			System.out.println(eOUT.getMessage());
+			System.out.println("Error in sendData()-eOUT2: " + eOUT2.getMessage());
 		}
 	}
 
-	
 	// Get Response
 	// ==========================================================================================================
+
 	public String getData()
 	{
+		StringBuffer responseBuffer = new StringBuffer();
+
 		try
 		{
-			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			BufferedReader in = null;
+			in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			String line = null;
 
 			try
 			{
 				while ((line = in.readLine()) != null)
 				{
-					response.append(line);
+					responseBuffer.append(line);
 				}
-				System.out.println("RESPONSE: " + response);
-			} 
-			catch (IOException e)
+				System.out.println("\nRESPONSE: " + responseBuffer);
+			} catch (IOException eIN1)
 			{
-				System.out.println(e.getMessage());
-			} 
-			finally
+				System.out.println("Error in getData()-eIN1: " + eIN1.getMessage());
+			} finally
 			{
+				System.out.println("\t...GETTING DATA COMPLETE");
 				in.close();
-			}
-		} 
-		catch (IOException eIN)
+			}		
+		} catch (IOException eIN2)
 		{
-			System.out.println(eIN.getMessage());
+			System.out.println("Error in getData()-eIN2: " + eIN2.getMessage());
 		}
+		
 
-		if (response != null)
+		if (responseBuffer != null)
 		{
-			Response r = new Response(response);
-		} 
-		else
+
+			Response r = new Response(responseBuffer);
+			answer = r.getContent();
+
+			/*
+			 * Log log = new Log(LocalDate.now(), request, response);
+			 */
+			// answer = String.valueOf(responseBuffer);
+		} else
 		{
 			answer = "No content found in response.";
 		}
