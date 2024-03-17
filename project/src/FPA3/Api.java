@@ -12,7 +12,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class Api implements DataTransfer
 {
 	private String url = "https://api.openai.com/v1/chat/completions";
-	private String apiKey = "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";
+	private String apiKey = "";
 	private String model = "gpt-3.5-turbo";
 
 	private StringBuffer response = null;
